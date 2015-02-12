@@ -1,0 +1,11 @@
+dopcor input=./ut140820/sdss2038m0519_dered.fits output=./ut140820/sdss2038m0519_z.fits redshift=0.229 isveloc=no dispers=yes flux=no
+dopcor input=./ut140820/sdss2229p1259_dered.fits output=./ut140820/sdss2229p1259_z.fits redshift=0.219 isveloc=no dispers=yes flux=no
+dopcor input=./ut140821/sdss2205p1340_dered.fits output=./ut140821/sdss2205p1340_z.fits redshift=0.367 isveloc=no dispers=yes flux=no
+dopcor input=./ut140821/sdss2215m0945_dered.fits output=./ut140821/sdss2215m0945_z.fits redshift=0.202 isveloc=no dispers=yes flux=no
+dopcor input=./ut140821/sdss2257m0020_dered.fits output=./ut140821/sdss2257m0020_z.fits redshift=0.223 isveloc=no dispers=yes flux=no
+dopcor input=./ut140821/sdss2338m0920_dered.fits output=./ut140821/sdss2338m0920_z.fits redshift=0.236 isveloc=no dispers=yes flux=no
+dopcor input=./ut140822/sdss0028m1039_dered.fits output=./ut140822/sdss0028m1039_z.fits redshift=0.302 isveloc=no dispers=yes flux=no
+dopcor input=./ut140822/sdss0100p1445_dered.fits output=./ut140822/sdss0100p1445_z.fits redshift=0.291 isveloc=no dispers=yes flux=no
+dopcor input=./ut140822/sdss0155m0041_dered.fits output=./ut140822/sdss0155m0041_z.fits redshift=0.269 isveloc=no dispers=yes flux=no
+dopcor input=./ut140822/sdss0314m0713_dered.fits output=./ut140822/sdss0314m0713_z.fits redshift=0.312 isveloc=no dispers=yes flux=no
+dopcor input=./ut140822/sdss2153p1054_dered.fits output=./ut140822/sdss2153p1054_z.fits redshift=0.303 isveloc=no dispers=yes flux=no
