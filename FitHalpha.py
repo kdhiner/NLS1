@@ -3,8 +3,9 @@
 
 import numpy as np 
 import pyspeckit as pspec
-import scipy
-import pylab
+import time
+import datetime
+
 from pyspeckit import spectrum as spec
 from matplotlib import pyplot as plt
 
@@ -132,3 +133,47 @@ while True:
             break
 
         
+# Measure the lines and output the parameters
+
+sp.measure()
+
+print '\n The measurements on each line are: \n'
+
+for line in sp.measurements.lines.keys():
+    print line, sp.measurements.lines[line]['pos'].round(2), \
+          sp.measurements.lines[line]['flux'].round(1), \
+          sp.measurements.lines[line]['amp'].round(1), \
+          sp.measurements.lines[line]['fwhm'].round(1)
+
+# Print the measurements to a file
+
+save_fit = input('\n Save the output parameters? (y/n) ')
+
+if save_fit == 'y' or save_fit == 'Y':
+    pre2 = '/Users/Kyle/NLS1/plots/pyspecfits/'
+    out_file = input('\n Insert file name to write to: ')
+
+    print '\n Warning! This will overwrite the file!'
+    check = input('Are you sure? (y/n) ')
+
+    if check == 'y' or check == 'Y':
+        fout = open(pre2 + out_file, 'w')
+
+        # Print header with date and time
+        fout.write('Object ' + spec_file + '\n')
+        ts = time.time()
+        fout.write(datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S') + '\n')
+
+        # Print the data
+        for line in sp.measurements.lines.keys():
+            fout.write(str(line) + ' ' + str(sp.measurements.lines[line]['pos'].round(2)) + \
+                ' ' + str(sp.measurements.lines[line]['flux'].round(1)) + \
+                ' ' + str(sp.measurements.lines[line]['amp'].round(1)) + \
+                ' ' + str(sp.measurements.lines[line]['fwhm'].round(1)) )
+            fout.write('\n')
+
+        fout.close()
+        print 'Wrote file ' + pre2 + out_file
+
+    else:
+        print 'Not writing a file! Goodbye'
