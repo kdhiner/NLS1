@@ -31,7 +31,7 @@ SIIb = 6733.
 T, F = True, False
 
 # Define the initial guesses
-guess = [2e-16, NIIa, 10., \
+default_guess = [2e-16, NIIa, 10., \
     3e-16, NIIb, 10., \
     3e-16, Ha, 10., \
     1e-16, Ha, 50., \
@@ -47,12 +47,12 @@ tied = ['', '', 'p[17]', \
     '', '', '']
 
 # Define the limits on each parameter
-limits = [(0.1 * guess[0], 100.), (NIIa - 2., NIIa + 2.), (0.1, 100.), \
-    (0.1 * guess[3], 100.), (NIIb - 2., NIIb + 2), (0.1, 100.), \
-    (0.1 * guess[6], 100.), (Ha - 2., Ha + 2.), (0.1, 100.), \
-    (0.1 * guess[9], 100.), (Ha - 2., Ha + 2.), (10., 100.),
-    (0.1 * guess[12], 100.), (SIIa - 2., SIIa + 2.), (0.1, 100.), \
-    (0.1 * guess[15], 100.), (SIIb - 2., SIIb + 2.), (0.1, 100.)]
+limits = [(0.1 * default_guess[0], 100.), (NIIa - 2., NIIa + 2.), (0.1, 100.), \
+    (0.1 * default_guess[3], 100.), (NIIb - 2., NIIb + 2), (0.1, 100.), \
+    (0.1 * default_guess[6], 100.), (Ha - 2., Ha + 2.), (0.1, 100.), \
+    (0.1 * default_guess[9], 100.), (Ha - 2., Ha + 2.), (10., 100.),
+    (0.1 * default_guess[12], 100.), (SIIa - 2., SIIa + 2.), (0.1, 100.), \
+    (0.1 * default_guess[15], 100.), (SIIb - 2., SIIb + 2.), (0.1, 100.)]
 
 # State whether the limit should be enforced
 limited = [(T, F), (T, T), (F, T), \
@@ -101,6 +101,17 @@ while True:
 
 sp.plotter(xmin = xmin, xmax = xmax)
 
+print '\n Initialize your guesses '
+print 'Format is [Amp, Centroid, Width]'
+print 'Can use NIIa, NIIb, Ha, SIIa, and SIIb variables for centroids'
+init_guess = input('Enter guess or enter empty list to use defaults ')
+
+if init_guess == []:
+    guess = default_guess
+    init_guess = default_guess
+else:
+    guess = init_guess
+
 while True:
 
     try:
@@ -110,12 +121,7 @@ while True:
         print '\n Fit crashed.'
         again = input('\n Try reinitializing initial parameters and running again? (y/n) ')
         if again == 'y' or again == 'Y':
-            guess = [2e-16, NIIa, 10., \
-                    3e-16, NIIb, 10., \
-                    3e-16, Ha, 10., \
-                    1e-16, Ha, 50., \
-                    0.5e-16, SIIa, 10., \
-                    0.5e-16, SIIb, 10.]
+            guess = init_guess
             continue
         else:
             print '\n Quitting for now'
@@ -127,8 +133,14 @@ while True:
         break
     else:
         again = input('\n Try running again without changes? (y/n) ')
-        if again == 'y' or again == 'Y': continue
+        if again == 'y' or again == 'Y':
+            continue
         else:
+            print '\n Input new parameters to try'
+            print 'Format is [Amp, Centroid, Width]'
+            print 'Can use NIIa, NIIb, Ha, SIIa, and SIIb variables for centroids'
+            init_guess = input()
+            
             print '\n Quitting for now'
             break
 
@@ -174,6 +186,7 @@ if save_fit == 'y' or save_fit == 'Y':
 
         fout.close()
         print 'Wrote file ' + pre2 + out_file
+        print 'Thanks for fitting! Goodbye.'
 
-    else:
-        print 'Not writing a file! Goodbye'
+else:
+    print 'Not writing a file! Goodbye.'
